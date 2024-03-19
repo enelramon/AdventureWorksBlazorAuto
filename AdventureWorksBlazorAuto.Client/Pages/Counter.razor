@@ -1,0 +1,56 @@
+﻿@page "/counter"
+@using Shared
+@using AdventureWorksBlazorAuto.Client.Services
+@rendermode InteractiveAuto
+@inject DepartmentService departmentService
+
+<PageTitle>Counter</PageTitle>
+
+<h1>Counter</h1>
+
+<p role="status">Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+
+
+@if (departments == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>Temp. (C)</th>
+            <th>Temp. (F)</th>
+            <th>Summary</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var dept in departments)
+        {
+            <tr>
+                <td>@dept.DepartmentId</td>
+                <td>@dept.Name</td> 
+            </tr>
+        }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private int currentCount = 0;
+    private IEnumerable<DepartmentDto> departments;
+
+
+
+    private async Task IncrementCount()
+    {
+        departments = await departmentService.GetDepartments();
+
+        currentCount++;
+    }
+}

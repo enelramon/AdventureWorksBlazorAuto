@@ -1,0 +1,52 @@
+﻿@page "/weather"
+@using AdventureWorksBlazorAuto.Models
+@using System.Runtime.InteropServices
+@using AdventureWorksBlazorAuto.Services
+@using Shared
+@attribute [StreamRendering]
+@inject DepartmentsService departmentsService 
+
+<PageTitle>Weather</PageTitle>
+
+<h1>Weather</h1>
+
+<p>This component demonstrates showing data.</p>
+
+@if (departments == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Temp. (C)</th>
+                <th>Temp. (F)</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var dept in departments)
+            {
+                <tr>
+                    <td>@dept.DepartmentId</td>
+                    <td>@dept.Name</td> 
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<DepartmentDto> departments;
+
+  
+
+    protected override async Task OnInitializedAsync()
+    {
+        departments = await departmentsService.GetDepartments();
+    }
+
+}
