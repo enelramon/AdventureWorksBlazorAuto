@@ -4,7 +4,7 @@
 @using AdventureWorksBlazorAuto.Services
 @using Shared
 @attribute [StreamRendering]
-@inject DepartmentsService departmentsService 
+@inject DepartmentsService departmentsService
 
 <PageTitle>Weather</PageTitle>
 
@@ -32,7 +32,7 @@ else
             {
                 <tr>
                     <td>@dept.DepartmentId</td>
-                    <td>@dept.Name</td> 
+                    <td>@dept.Name</td>
                 </tr>
             }
         </tbody>
@@ -42,11 +42,17 @@ else
 @code {
     private IEnumerable<DepartmentDto> departments;
 
-  
+
 
     protected override async Task OnInitializedAsync()
     {
         departments = await departmentsService.GetDepartments();
+
+        var n1 = 1;
+        var n2 = 2;
+
+        var calculadora = new CalculadoraService();
+        var retorno = calculadora.Suma(n2, n1);
     }
 
 }

@@ -34,7 +34,7 @@ builder.Services.AddScoped(c =>
 builder.Services.AddHttpClient();
 
 
-builder.Services.AddScoped<DepartmentService>();
+builder.Services.AddScoped<DepartmentService>(); 
 
 var app = builder.Build();
 
